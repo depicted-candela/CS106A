@@ -25,33 +25,42 @@ public class Theseus extends GraphicsProgram {
 	public void run() {
 		
 		ArrayList<Line> a_lines = mazeDrawer();
-//		for (int i = 0; i < a_lines.length; i++) {
-//		    newArray[i] = a_lines[i];
-//		}
+
 		Label th = theseus();
 		add(th);
-//		th.isFacingWall(a_lines);
+		
 		while (true) {
 			
-			println(th.isAWallAtRight(a_lines));
-			if (th.isAWallAtRight(a_lines) && !(th.isFacingWall(a_lines))) {
-				println("C");
-				th.moveForward();
-			} else if (th.isAWallAtRight(a_lines) && th.isFacingWall(a_lines)) {
-				th.turnLeft();
-			} else if (th.isFacingWall(a_lines) && !(th.isAWallAtRight(a_lines))) {
-				th.turnRight();
-			} else if (!(th.isAWallAtRight(a_lines))) {
-				th.turnRight();
-			} else {
-				println("?");
-			}
-			
 	        try {
-	            Thread.sleep(2000);
+	            Thread.sleep(1000);
 	        } catch (InterruptedException e) {
 	            e.printStackTrace();
 	        }
+			
+			for (int i = 0; i < a_lines.size(); i++) {
+				
+				Line a_l = a_lines.get(i);
+				
+//				if (th.isFacingWall(a_l)) {
+//					System.out.println(th.isFacingWall(a_l));
+//					System.out.println(a_l);
+//					System.out.println(th.getX());
+//					System.out.println(th.getY());
+//				}
+				
+				if (th.isAWallAtRight(a_l) && !(th.isFacingWall(a_l))) {
+					th.moveForward();
+				} else if (th.isAWallAtRight(a_l) && th.isFacingWall(a_l)) {
+					th.turnLeft();
+				} else if (th.isFacingWall(a_l) && !(th.isAWallAtRight(a_l))) {
+					th.turnRight();
+				} else if (!(th.isAWallAtRight(a_l))) {
+					th.turnRight();
+				} else {
+					println("?");
+				}
+			
+			}
 	        
 	        if (th.isOutside()) break;
 	        
