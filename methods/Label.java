@@ -21,38 +21,35 @@ public class Label extends GLabel {
 	private Line right_hand_wall;
 	private int angle;
 	private int step;
+	private int dx;
+	private int dy;
 	
 	public Label(String arg0, double arg1, double arg2) {
 		super(arg0, arg1, arg2);
 		this.angle = -90;
 		this.step = S * 20;
+		this.dx = 0;
+		this.dy = step;
 	}
 	
-	public boolean isAWallAtRight(Line li) {
-		
-		CartesianDistance cartesian = new CartesianDistance();
+	public boolean isAWallAtRight(ArrayList<Line> a_lines) {
 		
 		double d = this.getDirection();
-		double xs = li.getStartPoint().getX();
-		double ys = li.getStartPoint().getY();
-		double xe = li.getEndPoint().getX();
-		double ye = li.getEndPoint().getY();
 		
-		if ((( d / 10.0 ) % 2.0 != 0.0) && (li.getType() == 1)) {
+		for (int i = 0; i < a_lines.size(); i++) {
 			
-			if (this.getDy() > 0 && xs > this.getX()) {
-				if (cartesian.cartesianDistancePointLine(this.getX(), this.getY(), xs, xe, ys, ye)) return true;
-			} else if (this.getDy() < 0 && xs < this.getX()) {
-				if (cartesian.cartesianDistancePointLine(this.getX(), this.getY(), xs, xe, ys, ye)) return true;
+			Line li = a_lines.get(i);
+			
+			if ((( d / 10.0 ) % 2.0 != 0.0) && (li.getType() == 1)) {
+				
+				if (this.getDy() >= 0 && (this.getLocation().getX() - li.getX() <= (S * 20 / 2))) {
+					
+					if (li.getEndPoint().getY() > this.getX() && li.getStartPoint().getY() < this.getX()) return true;
+					
+				}
+				
 			}
 			
-		} else if ((( d / 10.0 ) % 2.0 == 0.0) && (li.getType() == 0)) {
-			
-			if (this.getDx() > 0 && ys > this.getY()) {
-				if (cartesian.cartesianDistancePointLine(this.getX(), this.getY(), xs, xe, ys, ye)) return true;
-			} else if (this.getDx() < 0 && ys < this.getY()) {
-				if (cartesian.cartesianDistancePointLine(this.getX(), this.getY(), xs, xe, ys, ye)) return true;
-			}
 		}
 		
 		return false;
@@ -60,56 +57,45 @@ public class Label extends GLabel {
 	}
 	
 	
-	public boolean isFacingWall(Line li) {
+	public boolean isFacingWall(ArrayList<Line> a_lines) {
 		
-		CartesianDistance cartesian = new CartesianDistance();
+		double d = this.getDirection();
 		
-		double d = this.getDirection();	
-		double x;
-		double y;
+		for (int i = 0; i < a_lines.size(); i++) {
+			
+			Line li = a_lines.get(i);
 		
-	    if ((li.getType() != 1) && (( d / 10.0 ) % 2.0 != 0.0)) {
-	    	
-	    	x = this.getX();
-	    	y = li.getY();
-	    	
-	    	if (this.getDy() < 0 && (Math.abs(y - this.getY()) < (S * 20 / 2))) {
-	    		
-	    		System.out.println(y - this.getY());
-	    		
-		    	if (cartesian.cartesianDistance(this.getX(), x, this.getY(), y)) return true;
-	    	} else if (this.getDy() > 0 && (Math.abs(this.getY() - y) < (S * 20 / 2))) {
-	    		
-	    		System.out.println(this.getY() - y);
-	    		
-	    		if (cartesian.cartesianDistance(this.getX(), x, this.getY(), y)) return true;
-	    	}
-
-	    } else {
-	    	
-	    	x = li.getX();
-	    	y = this.getY();
-	    	
-	    	if (this.getDx() < 0 && (Math.abs(this.getX() - x) < (S * 20 / 2))) {
-	    		System.out.println(this.getX() - x);
-		    	if (cartesian.cartesianDistance(this.getX(), x, this.getY(), y)) return true;
-	    	} else if (this.getDx() > 0 && (Math.abs(x - this.getX()) < (S * 20 / 2))) {
-	    		System.out.println(x - this.getX());
-	    		if (cartesian.cartesianDistance(this.getX(), x, this.getY(), y)) return true;
-	    	}
-
-	    }
+		    if ((li.getType() == 0) && (( d / 10.0 ) % 2.0 != 0.0)) {
+		    	
+		    	if (this.getDy() > 0 && (this.getLocation().getY() - li.getY() == S * 15)) {
+		    		
+		    		if (li.getEndPoint().getX() > this.getX() && li.getStartPoint().getX() < this.getX()) return true;
+		    		if (li.getEndPoint().getX() < this.getX() && li.getStartPoint().getX() > this.getX()) return true;
+			    	
+		    	}
+	
+		    }
+		    
+		}
 		
 		return false;
 		
 	}
-	
-	public double getDx() {
-		return Math.cos(Math.toRadians(this.angle));
+
+	public void setDx() {
+		this.dx = (int) Math.cos(Math.toRadians(this.angle)) * this.step;
 	}
 	
-	public double getDy() {
-		return Math.sin(Math.toRadians(this.angle));
+	public int getDx() {
+		return this.dx;
+	}
+	
+	public void setDy() {
+		this.dy = (int) Math.sin(Math.toRadians(this.angle)) * this.step;
+	}
+	
+	public int getDy() {
+		return this.dy;
 	}
 	
 	public Line getRightHand() {
@@ -152,20 +138,20 @@ public class Label extends GLabel {
 	
 	public void moveForward() {
 		
-		int dx = (int) (Math.cos(Math.toRadians(this.angle)) * this.step);
-		int dy = (int) (Math.sin(Math.toRadians(this.angle)) * this.step);
+		this.setDx();
+		this.setDy();
 		
-		if (dx != 0 && dy == 0) {
+		if (this.getDx() != 0 && this.getDy() == 0) {
 			
 			double x = this.getLocation().getX();
 			double y = this.getLocation().getY();
-			this.setLocation(x + dx, y);
+			this.setLocation(x + this.getDx(), y);
 			
-		} else if (dy != 0 && dx == 0) {
+		} else if (this.getDy() != 0 && this.getDx() == 0) {
 			
 			double x = this.getLocation().getX();
 			double y = this.getLocation().getY();
-			this.setLocation(x, y + dy);
+			this.setLocation(x, y + this.getDy());
 			
 		}
 		

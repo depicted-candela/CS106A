@@ -37,31 +37,23 @@ public class Theseus extends GraphicsProgram {
 	            e.printStackTrace();
 	        }
 			
-			for (int i = 0; i < a_lines.size(); i++) {
+			if (th.isAWallAtRight(a_lines) && !th.isFacingWall(a_lines)) {
 				
-				Line a_l = a_lines.get(i);
+				System.out.println(th);
+				th.moveForward();
+				System.out.println(th);
 				
-//				if (th.isFacingWall(a_l)) {
-//					System.out.println(th.isFacingWall(a_l));
-//					System.out.println(a_l);
-//					System.out.println(th.getX());
-//					System.out.println(th.getY());
-//				}
+			} else if (th.isFacingWall(a_lines)) {
 				
-				if (th.isAWallAtRight(a_l) && !(th.isFacingWall(a_l))) {
-					th.moveForward();
-				} else if (th.isAWallAtRight(a_l) && th.isFacingWall(a_l)) {
-					th.turnLeft();
-				} else if (th.isFacingWall(a_l) && !(th.isAWallAtRight(a_l))) {
-					th.turnRight();
-				} else if (!(th.isAWallAtRight(a_l))) {
-					th.turnRight();
-				} else {
-					println("?");
-				}
-			
+				System.out.println('A');
+				
+			} else if (!th.isAWallAtRight(a_lines)) {
+				
+				System.out.println(th);
+				System.out.println('B');
+				
 			}
-	        
+			
 	        if (th.isOutside()) break;
 	        
 		}
