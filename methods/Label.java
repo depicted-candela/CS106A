@@ -26,10 +26,19 @@ public class Label extends GLabel {
 	
 	public Label(String arg0, double arg1, double arg2) {
 		super(arg0, arg1, arg2);
-		this.angle = -90;
-		this.step = S * 20;
-		this.dx = 0;
-		this.dy = step;
+		this.angle = 90;
+		this.step = S * 2;
+		this.dx = (int) Math.cos(Math.toRadians(this.angle)) * this.step;;
+		this.dy = (int) Math.sin(Math.toRadians(this.angle)) * -this.step;
+	}
+	
+	public static Label theseus() {
+		
+		Label theseus = new Label("\u03B8", S * 15, S * 9);
+		theseus.setFont("London-34");
+		
+		return theseus;
+		
 	}
 	
 	public boolean isAWallAtRight(ArrayList<Line> a_lines) {
@@ -40,11 +49,37 @@ public class Label extends GLabel {
 			
 			Line li = a_lines.get(i);
 			
-			if ((( d / 10.0 ) % 2.0 != 0.0) && (li.getType() == 1)) {
+			// Para detectar verticalmente
+			if ((d % 20.0 != 0.0) && (li.getType() == 1)) {
 				
-				if (this.getDy() >= 0 && (this.getLocation().getX() - li.getX() <= (S * 20 / 2))) {
+				double lix = li.getX();
+				double tx = this.getLocation().getX();
+				double tdy = this.getDy();
+				
+				// De abajo hacia arriba
+				if (tdy < 0 && (lix > tx) && ((lix - tx) <= (S * 1))) {
 					
-					if (li.getEndPoint().getY() > this.getX() && li.getStartPoint().getY() < this.getX()) return true;
+					if (li.getEndPoint().getY() > this.getY() && li.getStartPoint().getY() < this.getY()) return true;
+			
+				}
+				
+			// Para detectar horizontalmente
+			} else if ((d % 20.0 == 0.0) && (li.getType() == 0)) {
+				
+				double tdx = this.getDx();
+				double ty = this.getLocation().getY();
+				double liy = li.getY();
+				
+				// De izquierda a derecha
+				if (tdx > 0 && (ty < liy) && ((liy - ty) <= (S * 1))) {
+					
+//					if (li.getEndPoint().getX() < this.getX() && li.getStartPoint().getX() > this.getX()) return true;
+					if (li.getEndPoint().getX() > this.getX() && li.getStartPoint().getX() < this.getX()) return true;
+				
+				// De derecha a izquierda
+				} else if (tdx < 0 && (ty > liy) && (ty - liy) <= (S * 1)) {
+					
+					if (li.getEndPoint().getX() > this.getX() && li.getStartPoint().getX() < this.getX()) return true;
 					
 				}
 				
@@ -56,7 +91,6 @@ public class Label extends GLabel {
 		
 	}
 	
-	
 	public boolean isFacingWall(ArrayList<Line> a_lines) {
 		
 		double d = this.getDirection();
@@ -64,14 +98,54 @@ public class Label extends GLabel {
 		for (int i = 0; i < a_lines.size(); i++) {
 			
 			Line li = a_lines.get(i);
-		
-		    if ((li.getType() == 0) && (( d / 10.0 ) % 2.0 != 0.0)) {
+			
+			// Para detectar muros verticalmente
+		    if ((li.getType() == 0) && (d % 20.0 != 0.0)) {
 		    	
-		    	if (this.getDy() > 0 && (this.getLocation().getY() - li.getY() == S * 15)) {
+		    	double ly = li.getY();
+		    	double ty = this.getLocation().getY();
+		    	double tdy = this.getDy();
+		    	
+		    	// De abajo hacia arriba
+		    	if (tdy < 0 && (ty - ly <= S * 1) && (ty > ly)) {
 		    		
-		    		if (li.getEndPoint().getX() > this.getX() && li.getStartPoint().getX() < this.getX()) return true;
-		    		if (li.getEndPoint().getX() < this.getX() && li.getStartPoint().getX() > this.getX()) return true;
+			    	double lsx = li.getStartPoint().getX();
+			    	double lex = li.getEndPoint().getX();
+			    	double tx = this.getLocation().getX();
+		    		
+			    	if (lsx < tx && lex > tx) return true;
+			    
+		    	// De arriba hacia abajo
+		    	} else if (tdy > 0 && (ly - ty <= S * 1) && (ly > ty)) {
+		    		
+			    	double lsx = li.getStartPoint().getX();
+			    	double lex = li.getEndPoint().getX();
+			    	double tx = this.getLocation().getX();
+		    	
+		    		if (lex < tx && lsx > tx) return true;
+		    		
+		    	}
+	
+		    }
+		    
+		    // Para detectar muros horizontalmente
+		    if ((li.getType() == 1) && (d % 20.0 == 0.0)) {
+		    	
+		    	double lx = li.getX();
+		    	double tx = this.getLocation().getX();
+		    	double tdx = this.getDx();
+		    	
+		    	// Para horizontalidad de izquierda a derecha
+		    	if (tdx > 0 && (lx - tx <= S * 1) && (lx > tx)) {
+		    		
+		    		if (li.getEndPoint().getY() > this.getY() && li.getStartPoint().getY() < this.getY()) return true;
+//		    		if (li.getEndPoint().getY() < this.getY() && li.getStartPoint().getY() > this.getY()) return true;
 			    	
+		    	// Para horizontalidad de derecha a izquierda
+		    	} else  if (tdx < 0 && (tx - lx <= S) && (tx > lx)) {
+		    		
+		    		if (li.getEndPoint().getY() > this.getY() && li.getStartPoint().getY() < this.getY()) return true;
+		    		
 		    	}
 	
 		    }
@@ -91,7 +165,7 @@ public class Label extends GLabel {
 	}
 	
 	public void setDy() {
-		this.dy = (int) Math.sin(Math.toRadians(this.angle)) * this.step;
+		this.dy = (int) Math.sin(Math.toRadians(this.angle)) * -this.step;
 	}
 	
 	public int getDy() {
@@ -124,7 +198,7 @@ public class Label extends GLabel {
 	
 	public boolean isOutside() {
 		
-		return this.getY() > 190 * S;
+		return this.getY() > 19 * S;
 
 	}
 	
@@ -157,6 +231,6 @@ public class Label extends GLabel {
 		
 	}
 	
-	private static final int S = 2;
+	private static final int S = 20;
 	
 }
