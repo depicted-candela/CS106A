@@ -58,7 +58,7 @@ public class MathQuiz extends ConsoleProgram {
 			}
 			
 			if (result == n1 + n3) {
-				println("That's the answer!");
+				okMessage();
 				break;
 			}
 			
@@ -94,6 +94,24 @@ public class MathQuiz extends ConsoleProgram {
 		}
 		
 		return ints;
+		
+	}
+	
+	private void okMessage() {
+		
+		int m = sign_numbers.nextInt(0, 2);
+		switch(m) {
+			case 0:
+				println("Correct!");
+				break;
+			case 1:
+				println("You got it!");
+				break;
+			case 2:
+				println("That's the answer!");
+				break;
+			default: break;
+		}
 		
 	}
 	

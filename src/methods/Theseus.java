@@ -9,7 +9,6 @@ package methods;
  */
 
 import acm.program.*;
-
 import java.awt.Color;
 import java.util.ArrayList;
 

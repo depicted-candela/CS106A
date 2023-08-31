@@ -9,6 +9,7 @@ package objects_classes;
  */
 
 import acm.util.*;
+import java.math.*;
 
 public class Rational {
 	
@@ -32,9 +33,12 @@ public class Rational {
 	*/
 	public Rational(int x, int y) {
 		if (y == 0) throw new ErrorException("Division by 0");
-		int g = gcd(Math.abs(x), Math.abs(y));
-		num = x / g;
-		den = Math.abs(y) / g;
+		BigInteger xb = new BigInteger(String.valueOf(Math.abs(x)));
+		BigInteger yb = new BigInteger(String.valueOf(Math.abs(y)));
+		BigInteger gb = gcd(xb, yb);
+		int gi = gb.intValueExact();
+		num = x / gi;
+		den = Math.abs(y) / gi;
 		if (y < 0) num = -num;
 	}
 	/**
@@ -87,12 +91,12 @@ public class Rational {
 	* @param y Second integer
 	* @return The greatest common divisor of x and y
 	*/
-	private int gcd(int x, int y) {
-		int r = x % y;
-		while (r != 0) {
+	private BigInteger gcd(BigInteger x, BigInteger y) {
+		BigInteger r = x.mod(y);
+		while (r.compareTo(BigInteger.ZERO) == 0) {
 			x = y;
 			y = r;
-			r = x % y;
+			r = x.mod(y);
 		}
 		return y;
 	}
