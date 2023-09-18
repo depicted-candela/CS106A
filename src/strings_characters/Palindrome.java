@@ -32,7 +32,6 @@ public class Palindrome extends ConsoleProgram {
 	private boolean isPalindromeConstructor(String s) {
 		
 		int s_len = s.length();
-		String s_clean = s.trim();
 		String first = s.substring(0, s_len/2);
 		String second;
 		
@@ -58,7 +57,7 @@ public class Palindrome extends ConsoleProgram {
 			
 			Character c1 = first.charAt(i);
 			Character c2 = second.charAt(fl - 1 - i);
-			if(c1.compareTo(c2) != 0) return false;
+			if(!c1.equals(c2)) return false;
 			
 		}
 		
@@ -76,7 +75,7 @@ public class Palindrome extends ConsoleProgram {
 			
 			if(Character.isAlphabetic(c)) {
 				
-				cleaned = cleaned.concat(c.toString());
+				cleaned = cleaned + c.toString();
 				
 			}
 			
