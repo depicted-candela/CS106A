@@ -9,7 +9,6 @@ package object_oriented_graphics;
  */
 
 import java.awt.event.*;
-
 import acm.graphics.GCanvas;
 import acm.program.*;
 
