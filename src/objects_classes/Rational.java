@@ -85,6 +85,15 @@ public class Rational {
 			return num + "/" + den;
 		}
 	}
+	
+	/**
+	* Creates a double representation of this rational number.
+	* @return The double representation of this rational number
+	*/
+	public double toDouble() {
+		return num / den;
+	}
+	
 	/**
 	* Calculates the greatest common divisor using Euclid's algorithm.
 	* @param x First integer

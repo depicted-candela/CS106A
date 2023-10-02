@@ -14,11 +14,9 @@ import acm.program.*;
 public class ILoveJava extends GraphicsProgram {
 
 	private static final long serialVersionUID = 1L;
-//	public static final Font DEFAULT_FONT = 
 	
 	/** Size (diameter) of the label */
 	private int DIAM_LABEL;
-	private static final int HEIGHT_LABEL = 5;
 	
 	/** Amount Y velocity is increased each cycle as a
 	* result of gravity */
@@ -87,13 +85,13 @@ public class ILoveJava extends GraphicsProgram {
 	private void checkForCollision() {
 		
 		// determine if ball has dropped below the floor
-		if (label.getY() > getHeight() - HEIGHT_LABEL) {
+		if (label.getY() > getHeight()) {
 			// change ball's Y velocity to now bounce upwards
 			yVel = -yVel * BOUNCE_REDUCE;
 			// assume bounce will move ball an amount above the
 			// floor equal to the amount it would have dropped
 			// below the floor.
-			double diff = label.getY() - (getHeight() - HEIGHT_LABEL);
+			double diff = label.getY() - (getHeight());
 			label.move(0, -2 * diff);
 			
 		}
