@@ -91,7 +91,11 @@ public class Rational {
 	* @return The double representation of this rational number
 	*/
 	public double toDouble() {
-		return num / den;
+		System.out.println("Num");
+		System.out.println((double) num);
+		System.out.println("Den");
+		System.out.println((double) den);
+		return ((double) num) / ((double) den);
 	}
 	
 	/**
@@ -103,9 +107,13 @@ public class Rational {
 	private BigInteger gcd(BigInteger x, BigInteger y) {
 		BigInteger r = x.mod(y);
 		while (r.compareTo(BigInteger.ZERO) == 0) {
+			System.out.println('B');
+//			r = x.gcd(y);
+//			r = x;
 			x = y;
 			y = r;
 			r = x.mod(y);
+//			r = r.gcd(x);
 		}
 		return y;
 	}
