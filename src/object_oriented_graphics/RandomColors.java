@@ -22,12 +22,6 @@ public class RandomColors extends GraphicsProgram {
 	 * @param args
 	 */
 	
-	public void run() {
-		// TODO Auto-generated method stub
-		add(labDrawer(), 10.0, 10.0);
-		addMouseListeners();
-	}
-	
 	public void mousePressed(MouseEvent e) {
 		
 		double x = e.getX();
@@ -46,7 +40,7 @@ public class RandomColors extends GraphicsProgram {
 		
 		GCompound lab = (GCompound) getElementAt(x, y);
 		GLabel w = (GLabel) lab.getElementAt(x, y);
-		w.setColor(randomCol());
+		w.setColor(randomCol(w));
 		
 	}
 	
@@ -77,7 +71,7 @@ public class RandomColors extends GraphicsProgram {
 		
 		for (int i = 0; i < 7; i++) {
 			GLabel w = randomLab();
-			w.setColor(randomCol());
+			w.setColor(randomCol(w));
 			x = randg.nextDouble(0.0, 200.0);
 			y = randg.nextDouble(0.0, 200.0);
 			cir.add(w, x, y);
@@ -111,25 +105,51 @@ public class RandomColors extends GraphicsProgram {
 		return w;
 	}
 	
-	private Color randomCol () {
+	private Color randomCol (GLabel l) {
 		
-		int c = randg.nextInt(0, 6);
+		int c;
+		Color col;
 		
-		if (c == 0) {
-			return Color.RED;
-		} else if (c == 1) {
-			return Color.ORANGE;
-		} else if (c == 2) {
-			return Color.YELLOW;
-		} else if (c == 3) {
-			return Color.GREEN;
-		} else if (c == 4) {
-			return Color.CYAN;
-		} else if (c == 5) {
-			return Color.MAGENTA;
-		} else {
-			return Color.BLUE;
+		while (true) {
+			
+			c = randg.nextInt(0, 6);
+			
+			if (c == 0 && !l.getLabel().equals("RED")) {
+				col = Color.RED;
+				break;
+			} else if (c == 1 && !l.getLabel().equals("ORANGE")) {
+				col = Color.ORANGE;
+				break;
+			} else if (c == 2 && !l.getLabel().equals("YELLOW")) {
+				col = Color.YELLOW;
+				break;
+			} else if (c == 3 && !l.getLabel().equals("GREEN")) {
+				col = Color.GREEN;
+				break;
+			} else if (c == 4 && !l.getLabel().equals("CYAN")) {
+				col = Color.CYAN;
+				break;
+			} else if (c == 5 && !l.getLabel().equals("MAGENTA")) {
+				col = Color.MAGENTA;
+				break;
+			} else {
+				col = Color.BLUE;
+				break;
+			}
 		}
+		
+		return col;
+
+	}
+	
+	public void run() {
+		add(labDrawer(), 10.0, 10.0);
+		addMouseListeners();
+	}
+	
+	public static void main(String[] args) {
+		
+		new RandomColors().start();
 		
 	}
 	
