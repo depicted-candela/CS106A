@@ -29,6 +29,15 @@ package objects_classes;
 public class RationalPrinceton {
     private int num;   // the numerator
     private int den;   // the denominator
+    
+    // getters of num and den
+    public int getNum() {
+    	return num;
+    }
+    public int getDen() {
+    	return den;
+    }
+    
 
     // create and initialize a new Rational object
     public RationalPrinceton(int numerator, int denominator) {
