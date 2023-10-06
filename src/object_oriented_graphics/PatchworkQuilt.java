@@ -25,11 +25,11 @@ public class PatchworkQuilt extends GraphicsProgram {
 		
 		GCompound GC = new GCompound();
 		RationalPrinceton width_x, height_y;
-		width_x = sx.divides(new RationalPrinceton(8, 1));
+		width_x = sx.divides(new RationalPrinceton(10, 1));
 		height_y = sy;
 		
-		System.out.println(width_x.toDouble());
-		System.out.println(height_y.divides(new RationalPrinceton(8, 1)).toDouble());
+//		System.out.println(width_x.toDouble());
+//		System.out.println(height_y.divides(new RationalPrinceton(8, 1)).toDouble());
 		
 		double odd = 90.0;
 		double even = 90.0;
@@ -39,14 +39,18 @@ public class PatchworkQuilt extends GraphicsProgram {
 			
 			for (int i = 1; i < 5; i++) {
 				
+//				if (i % 2 != 0) {
+//					
+//					GC.add(new GRect(width_x.toDouble(), height_y.toDouble()),
+//							height_y.times(new RationalPrinceton((int) Math.abs(Math.cos(Math.toRadians(odd))), 1)).plus(pos.times(width_x)).toDouble(),
+//							width_x.times(new RationalPrinceton((int) Math.abs(Math.sin(Math.toRadians(odd))), 1)).plus(pos.times(width_x)).toDouble());
+//					odd+=90.0;
+//					
+//				} else {
 				if (i % 2 != 0) {
 					
-					GC.add(new GRect(width_x.toDouble(), height_y.toDouble()),
-							height_y.times(new RationalPrinceton((int) Math.abs(Math.cos(Math.toRadians(odd))), 1)).plus(pos.times(width_x)).toDouble(),
-							width_x.times(new RationalPrinceton((int) Math.abs(Math.sin(Math.toRadians(odd))), 1)).plus(pos.times(width_x)).toDouble());
-					odd+=90.0;
-					
-				} else {
+					System.out.println(pos);
+					System.out.println(height_y.toDouble());
 					
 					GC.add(new GRect(height_y.toDouble(), width_x.toDouble()),
 							width_x.times(new RationalPrinceton((int) Math.abs(Math.cos(Math.toRadians(even))), 1)).plus(pos.times(width_x)).toDouble(),
