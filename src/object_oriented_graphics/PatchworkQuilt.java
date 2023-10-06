@@ -15,7 +15,7 @@ public class PatchworkQuilt extends GraphicsProgram {
 	
 	private static final long serialVersionUID = 1L;
 	private final RationalPrinceton DX = new RationalPrinceton(1, 9);
-//	private int LOGCABINBLOCK = 0;
+	private int LOGCABINBLOCK = 0;
 	
 	/**
 	 * @param args
@@ -23,52 +23,46 @@ public class PatchworkQuilt extends GraphicsProgram {
 	
 	private GCompound LogCabinBlock(RationalPrinceton sx, RationalPrinceton sy, RationalPrinceton s) {
 		
-		pause(100);
-		
 		GCompound GC = new GCompound();
 		RationalPrinceton width_x, height_y;
 		width_x = sx.divides(new RationalPrinceton(8, 1));
 		height_y = sy;
+		
+		System.out.println(width_x.toDouble());
+		System.out.println(height_y.divides(new RationalPrinceton(8, 1)).toDouble());
+		
 		double odd = 90.0;
 		double even = 90.0;
-		
-		System.out.println(sx.toDouble());
-		System.out.println(DX.times(new RationalPrinceton(getWidth(), 1)).toDouble());
-		
-		if (sx.toDouble() < DX.times(new RationalPrinceton(getWidth(), 1)).toDouble()) {
+		RationalPrinceton pos = new RationalPrinceton(0, 1);
 			
-			return GC;
-			
-		} else {
+		while (height_y.toDouble() >= width_x.toDouble()) {
 			
 			for (int i = 1; i < 5; i++) {
 				
 				if (i % 2 != 0) {
 					
 					GC.add(new GRect(width_x.toDouble(), height_y.toDouble()),
-							height_y.times(new RationalPrinceton((int) Math.abs(Math.cos(Math.toRadians(odd))), 1)).toDouble(),
-							width_x.times(new RationalPrinceton((int) Math.abs(Math.sin(Math.toRadians(odd))), 1)).toDouble());
+							height_y.times(new RationalPrinceton((int) Math.abs(Math.cos(Math.toRadians(odd))), 1)).plus(pos.times(width_x)).toDouble(),
+							width_x.times(new RationalPrinceton((int) Math.abs(Math.sin(Math.toRadians(odd))), 1)).plus(pos.times(width_x)).toDouble());
 					odd+=90.0;
 					
 				} else {
 					
 					GC.add(new GRect(height_y.toDouble(), width_x.toDouble()),
-							width_x.times(new RationalPrinceton((int) Math.abs(Math.cos(Math.toRadians(even))), 1)).toDouble(),
-							height_y.times(new RationalPrinceton((int) Math.abs(Math.cos(Math.toRadians(even))), 1)).toDouble());
+							width_x.times(new RationalPrinceton((int) Math.abs(Math.cos(Math.toRadians(even))), 1)).plus(pos.times(width_x)).toDouble(),
+							height_y.times(new RationalPrinceton((int) Math.abs(Math.cos(Math.toRadians(even))), 1)).plus(pos.times(width_x)).toDouble());
 					even+=90.0;
 					
 				}
 				
 			}
 			
-			GC.add(LogCabinBlock(
-					sx.minus(new RationalPrinceton(getWidth(), 1).times(DX)),
-					sy.minus(new RationalPrinceton(getWidth(), 1).times(DX)),
-					s.plus(new RationalPrinceton(1, 1))));
-			
-			return GC;
+			pos = pos.plus(new RationalPrinceton(1, 1));
+			height_y = height_y.minus(width_x).minus(width_x);
 			
 		}
+		
+		return GC;
 		
 	}
 	
