@@ -61,6 +61,11 @@ public class RationalPrinceton {
         return ((double) num) / ((double) den);
     }
     
+    // return integer representation of (this)
+    public int toInt() {
+        return (int) toDouble();
+    }
+    
     // return (this * b)
     public RationalPrinceton times(RationalPrinceton b) {
         return new RationalPrinceton(this.num * b.num, this.den * b.den);
