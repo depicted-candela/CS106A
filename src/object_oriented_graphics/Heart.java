@@ -18,6 +18,7 @@ public class Heart extends GraphicsProgram {
 	/**
 	 * @param args
 	 */
+	
 	public void run() {
 		
 		// TODO Auto-generated method stub
@@ -41,6 +42,12 @@ public class Heart extends GraphicsProgram {
 		
 		GLine line2 = new GLine(SCALE + (x / 2) + y, SCALE + (x / 2) + y * 2, SCALE + (x / 2) + y * 2, SCALE + (x / 2) + y);
 		add(line2);
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		new Heart().start();
 		
 	}
 	
