@@ -21,9 +21,15 @@ public class FHeart extends GraphicsProgram {
 	public void run() {
 		
 		// TODO Auto-generated method stub
-		FilledHeart fh = new FilledHeart();
+		FilledHeart fh = new FilledHeart(100.0, 100.0);
 		add(fh);
 
+	}
+	
+	public static void main(String[] args) {
+		
+		new FHeart().start();
+		
 	}
 
 }

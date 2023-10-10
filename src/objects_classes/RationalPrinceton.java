@@ -63,7 +63,7 @@ public class RationalPrinceton {
     
     // return integer representation of (this)
     public int toInt() {
-        return (int) toDouble();
+        return (int) Math.round(toDouble());
     }
     
     // return (this * b)
