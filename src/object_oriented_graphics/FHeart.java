@@ -21,7 +21,7 @@ public class FHeart extends GraphicsProgram {
 	public void run() {
 		
 		// TODO Auto-generated method stub
-		FilledHeart fh = new FilledHeart(100.0, 100.0);
+		FilledHeart fh = new FilledHeart(SQUARE_SIZE);
 		add(fh);
 
 	}
@@ -31,5 +31,10 @@ public class FHeart extends GraphicsProgram {
 		new FHeart().start();
 		
 	}
+	
+	static double POS_X = 0.0;
+	static double POS_Y = 0.0;
+	static double SQUARE_SIZE = 300.0;
+	static double DIAM = Math.sqrt(2) * SQUARE_SIZE;
 
 }
