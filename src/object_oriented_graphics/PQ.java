@@ -4,6 +4,8 @@
 package object_oriented_graphics;
 
 import java.awt.Color;
+import java.awt.Font;
+
 import acm.graphics.*;
 import acm.program.*;
 import objects_classes.RationalPrinceton;
@@ -192,8 +194,48 @@ public class PQ extends GraphicsProgram {
 	
 	private GCompound Hearts(RationalPrinceton sx, RationalPrinceton sy) {
 		
-		GCompound GC;		// to create the Compound
-		GC = new FilledHeart(sx.toDouble(), sy.toDouble());
+		GCompound GC = new GCompound();		// to create the GCompound
+		
+		GRect r = new GRect(sx.toDouble(),	// to create the GRect
+				sy.toDouble());
+		r.setColor(Color.PINK);
+		r.setFilled(true);
+		
+		GC.add(r);
+		
+		FilledHeart FH;						// to create the Heart
+		double sh;
+		double yh;
+		double xh;
+		if (sx.toDouble() > sy.toDouble()) {
+			sh = sy.toDouble();
+			yh = sx.toDouble() / 10.0;
+			xh = sy.toDouble() / 18.0;
+		} else {
+			sh = sx.toDouble();
+			yh = sy.toDouble() / 10.0;
+			xh = sx.toDouble() / 18.0;
+		}
+		FH = new FilledHeart(9.0 * sh / 10.0);
+		GC.add(FH, xh, yh);
+		
+		GLabel i = new GLabel("I");
+		i.setColor(Color.WHITE);
+		i.setFont(new Font("Serif", Font.BOLD, 18));
+		GC.add(i, (1.0 / 2.0) * (sx.toDouble() - i.getWidth()),
+				9.0 * sh / 40.0 + xh + i.getAscent());
+		
+		GLabel love = new GLabel("Love");
+		love.setColor(Color.WHITE);
+		love.setFont(new Font("Serif", Font.BOLD, 18));
+		GC.add(love, (1.0 / 2.0) * (sx.toDouble() - love.getWidth()),
+				(2.0 * 9.0 * sh) / 40.0 + xh);
+		
+		GLabel java = new GLabel("Java");
+		java.setColor(Color.WHITE);
+		java.setFont(new Font("Serif", Font.BOLD, 18));
+		GC.add(java, (1.0 / 2.0) * (sx.toDouble() - java.getWidth()),
+				(3.0 * 9.0 * sh) / 40.0 + xh - i.getAscent());
 		
 		return GC;
 		
@@ -207,22 +249,22 @@ public class PQ extends GraphicsProgram {
 		RationalPrinceton SIZE_Y = new RationalPrinceton(getHeight(), 3);
 		
 //		// Green graphs
-//		GCompound gc1 = LogCabinBlock(SIZE_X, SIZE_Y, new RationalPrinceton(9, 1));
-//		add(gc1, 0, 0);
-//		GCompound gc2 = LogCabinBlock(SIZE_X, SIZE_Y, new RationalPrinceton(9, 1));
-//		add(gc2, SIZE_X.times(new RationalPrinceton(1, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(2, 1)).toInt());
-//		GCompound gc3 = LogCabinBlock(SIZE_X, SIZE_Y, new RationalPrinceton(9, 1));
-//		add(gc3, SIZE_X.times(new RationalPrinceton(2, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(1, 1)).toInt());
-//		GCompound gc4 = LogCabinBlock(SIZE_X, SIZE_Y, new RationalPrinceton(9, 1));
-//		add(gc4, SIZE_X.times(new RationalPrinceton(3, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(0, 1)).toInt());
-//		GCompound gc5 = LogCabinBlock(SIZE_X, SIZE_Y, new RationalPrinceton(9, 1));
-//		add(gc5, SIZE_X.times(new RationalPrinceton(4, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(2, 1)).toInt());
-//		
-//		// Squares
-//		GCompound s1 = Polygons(SIZE_X, SIZE_Y, SIZE_X, SIZE_Y);
-//		add(s1, SIZE_Y.times(new RationalPrinceton(0, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(1, 1)).toInt());
-//		GCompound s2 = Polygons(SIZE_X, SIZE_Y, SIZE_X, SIZE_Y);
-//		add(s2, SIZE_X.times(new RationalPrinceton(1, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(0, 1)).toInt());
+		GCompound gc1 = LogCabinBlock(SIZE_X, SIZE_Y, new RationalPrinceton(9, 1));
+		add(gc1, SIZE_X.times(new RationalPrinceton(0, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(0, 1)).toInt());
+		GCompound gc2 = LogCabinBlock(SIZE_X, SIZE_Y, new RationalPrinceton(9, 1));
+		add(gc2, SIZE_X.times(new RationalPrinceton(1, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(2, 1)).toInt());
+		GCompound gc3 = LogCabinBlock(SIZE_X, SIZE_Y, new RationalPrinceton(9, 1));
+		add(gc3, SIZE_X.times(new RationalPrinceton(2, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(1, 1)).toInt());
+		GCompound gc4 = LogCabinBlock(SIZE_X, SIZE_Y, new RationalPrinceton(9, 1));
+		add(gc4, SIZE_X.times(new RationalPrinceton(3, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(0, 1)).toInt());
+		GCompound gc5 = LogCabinBlock(SIZE_X, SIZE_Y, new RationalPrinceton(9, 1));
+		add(gc5, SIZE_X.times(new RationalPrinceton(4, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(2, 1)).toInt());
+		
+		// Squares
+		GCompound s1 = Polygons(SIZE_X, SIZE_Y, SIZE_X, SIZE_Y);
+		add(s1, SIZE_Y.times(new RationalPrinceton(0, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(1, 1)).toInt());
+		GCompound s2 = Polygons(SIZE_X, SIZE_Y, SIZE_X, SIZE_Y);
+		add(s2, SIZE_X.times(new RationalPrinceton(1, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(0, 1)).toInt());
 		GCompound s3 = Polygons(SIZE_X, SIZE_Y, SIZE_X, SIZE_Y);
 		add(s3, SIZE_X.times(new RationalPrinceton(2, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(2, 1)).toInt());
 		GCompound s4 = Polygons(SIZE_X, SIZE_Y, SIZE_X, SIZE_Y);
@@ -231,8 +273,21 @@ public class PQ extends GraphicsProgram {
 		add(s5, SIZE_X.times(new RationalPrinceton(4, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(0, 1)).toInt());
 		
 		// I Love Java
-		GCompound h1 = Hearts(SIZE_X.divides(new RationalPrinceton(2, 1)), SIZE_Y.divides(new RationalPrinceton(2, 1)));
-		add(h1, SIZE_Y.times(new RationalPrinceton(0, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(0, 1)).toInt());
+		GCompound hj1 = Hearts(SIZE_X, SIZE_Y);
+		add(hj1, SIZE_X.times(new RationalPrinceton(0, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(2, 1)).toInt());
+		hj1.sendToBack();
+		GCompound hj2 = Hearts(SIZE_X, SIZE_Y);
+		add(hj2, SIZE_X.times(new RationalPrinceton(1, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(1, 1)).toInt());
+		hj2.sendToBack();
+		GCompound hj3 = Hearts(SIZE_X, SIZE_Y);
+		add(hj3, SIZE_X.times(new RationalPrinceton(2, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(0, 1)).toInt());
+		hj3.sendToBack();
+		GCompound hj4 = Hearts(SIZE_X, SIZE_Y);
+		add(hj4, SIZE_X.times(new RationalPrinceton(3, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(2, 1)).toInt());
+		hj4.sendToBack();
+		GCompound hj5 = Hearts(SIZE_X, SIZE_Y);
+		add(hj5, SIZE_X.times(new RationalPrinceton(4, 1)).toInt(), SIZE_Y.times(new RationalPrinceton(1, 1)).toInt());
+		hj5.sendToBack();
 		
 	}
 	

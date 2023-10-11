@@ -19,11 +19,12 @@ public class FilledHeart extends GCompound {
 	 * @param args
 	 */
 	
+	double h;
+	
 	FilledHeart(double w) {
 		
 		double s = w / (1 + Math.sqrt(2));
 		double d = (w * Math.sqrt(2)) / (1 + Math.sqrt(2));
-		double h = (3 * s / 2) + (d / 2);
 		double k = d - s;
 		
 		GArc arc1 = new GArc(0.0, 0.0, d, d, 45.0, 180.0);
@@ -48,6 +49,10 @@ public class FilledHeart extends GCompound {
 		square.setFilled(true);
 		add(square);
 		
+	}
+	
+	public double getH() {
+		return h;
 	}
 
 }

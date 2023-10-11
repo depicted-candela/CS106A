@@ -22,6 +22,7 @@ public class FHeart extends GraphicsProgram {
 		
 		// TODO Auto-generated method stub
 		FilledHeart fh = new FilledHeart(SQUARE_SIZE);
+		System.out.println(fh.getH());
 		add(fh);
 
 	}
