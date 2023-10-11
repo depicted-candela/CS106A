@@ -14,7 +14,7 @@ import acm.program.*;
 
 public class PacMan extends GraphicsProgram {
 	
-	private static final long SerialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param size: the size of PacMan
