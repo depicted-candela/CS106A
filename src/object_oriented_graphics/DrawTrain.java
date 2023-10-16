@@ -6,6 +6,8 @@ import acm.program.*;
 
 public class DrawTrain extends GraphicsProgram {
 	
+	private static final long serialVersionUID = 1L;
+	
 	/* Dimensions of the frame of a train car */
 	private static final double CAR_WIDTH = 75;
 	private static final double CAR_HEIGHT = 36;
@@ -18,31 +20,18 @@ public class DrawTrain extends GraphicsProgram {
 	/* Distance from the edge of the frame to the center of the wheel */
 	private static final double WHEEL_INSET = 16;
 	/* Dimensions of the cab on the engine */
-	private static final double CAB_WIDTH = 35;
-	private static final double CAB_HEIGHT = 8;
+//	private static final double CAB_WIDTH = 35;
+//	private static final double CAB_HEIGHT = 8;
 	/* Dimensions of the smokestack and its distance from the front */
-	private static final double SMOKESTACK_WIDTH = 8;
-	private static final double SMOKESTACK_HEIGHT = 8;
-	private static final double SMOKESTACK_INSET = 8;
+//	private static final double SMOKESTACK_WIDTH = 8;
+//	private static final double SMOKESTACK_HEIGHT = 8;
+//	private static final double SMOKESTACK_INSET = 8;
 	/* Dimensions of the door panels on the boxcar */
-	private static final double DOOR_WIDTH = 18;
-	private static final double DOOR_HEIGHT = 32;
+//	private static final double DOOR_WIDTH = 18;
+//	private static final double DOOR_HEIGHT = 32;
 	/* Dimensions of the cupola on the caboose */
-	private static final double CUPOLA_WIDTH = 35;
-	private static final double CUPOLA_HEIGHT = 8;
-	
-	private void drawCarFrame(double x, double y, Color color) {
-		double x0 = x + CONNECTOR;
-		double y0 = y - CAR_BASELINE;
-		double top = y0 - CAR_HEIGHT;
-		add(new GLine(x, y0, x + CAR_WIDTH + 2 * CONNECTOR, y0));
-		drawWheel(x0 + WHEEL_INSET, y - WHEEL_RADIUS);
-		drawWheel(x0 + CAR_WIDTH - WHEEL_INSET, y - WHEEL_RADIUS);
-		GRect r = new GRect(x0, top, CAR_WIDTH, CAR_HEIGHT);
-		r.setFilled(true);
-		r.setFillColor(color);
-		add(r);
-	}
+//	private static final double CUPOLA_WIDTH = 35;
+//	private static final double CUPOLA_HEIGHT = 8;
 	
 	private void drawWheel(double x, double y) {
 		double r = WHEEL_RADIUS;
