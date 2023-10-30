@@ -4,7 +4,6 @@
 package object_oriented_graphics;
 
 import java.awt.event.MouseEvent;
-
 import acm.graphics.GRect;
 
 /**
