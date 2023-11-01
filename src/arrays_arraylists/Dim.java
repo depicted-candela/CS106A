@@ -18,29 +18,56 @@ public class Dim extends GraphicsProgram {
 	private static final int[] MOVEMENTS = {1, 2, 3};
 	private GCompound cs;
 	private int state;
+	private int[] comp_move;
+	private boolean player = true;
 
 	/**
 	 * @param args
 	 */
 	
 	public void run() {
+		
 		addMouseListeners();
 		add(circles());
+		while(cs.getElementCount() > 1) {		// If elements are higher than
+			// Pause 1 milisecond to not break	   1, then the game is playing	
+			// the program
+			pause(1);							
+			if (!player) {						// If its the computer turn (being
+				if (cs.getElementCount() > 1) { // player false), do this
+					
+					remove(cs);
+					drawComputer();
+					add(cs);					// Add to the canvas the painted cs
+					pause(500);
+					remove(cs);
+					deleteComputer();
+					add(cs);					// Add to the canvas the cleaned cs
+					pause(500);
+				}
+				player = true;					// Change the turn
+			}
+		}
+
 	}
 	
+	// If its the player turn, paint the cs circles
 	public void mousePressed(MouseEvent e) {
 		
-		double x = e.getX();
-		double y = e.getY();
-		GCompound gc = (GCompound) this.getElementAt(x, y);
-		GOval go = (GOval) gc.getElementAt(x, y);
-		if (validator(go)) {
-			painter(go, Color.red);
-			
+		if (player) {
+			double x = e.getX();
+			double y = e.getY();
+			GCompound gc = (GCompound) this.getElementAt(x, y);
+			GOval go = (GOval) gc.getElementAt(x, y);
+			if (validator(go)) {
+				painter(go, Color.red);
+			}
 		}
 		
 	}
 	
+	// If its the player turn, paint the cs circles delete the
+	// painted circles
 	public void mouseReleased(MouseEvent e) {
 		
 		for (int i = cs.getElementCount() - 1; i > -1; i--) {
@@ -50,19 +77,22 @@ public class Dim extends GraphicsProgram {
 			}
 		}
 		
-		if (cs.getElementCount() > 1) deleteComputer();
+		player = false;							// Set the turn to the computer
 		
 	}
 	
-	private void deleteComputer() {
-		int[] comp_move = bestMove(cs.getElementCount());
+	// Draw the circles with the best move
+	private void drawComputer() {
+		comp_move = bestMove(cs.getElementCount());
 		state = cs.getElementCount();
-		
 		for (int i = 0; i < comp_move[0]; i++) {
 			GOval go = (GOval) cs.getElement(state - 1 - i);
 			go.setFillColor(Color.yellow);
 		}
-		pause(1000);
+	}
+	
+	// Delete the circles with the best move
+	private void deleteComputer() {
 		for (int i = 0; i < comp_move[0]; i++) {
 			GOval go = (GOval) cs.getElement(state - 1 - i);
 			cs.remove(go);
@@ -110,6 +140,7 @@ public class Dim extends GraphicsProgram {
 		return result;
 	}
 	
+	// The player's painter
 	private void painter(GOval go, Color color) {
 		
 		int index = 0;
@@ -129,6 +160,7 @@ public class Dim extends GraphicsProgram {
 		
 	}
 	
+	// The validator of the possible movements
 	private boolean validator(GOval go) {
 		for (int i = cs.getElementCount() - 1; i > -1; i--) {
 			if (go == cs.getElement(i)) {
@@ -140,6 +172,7 @@ public class Dim extends GraphicsProgram {
 		return false;
 	}
 	
+	// Create the circles
 	private GCompound circles() {
 		cs = new GCompound();
 		for (int i = 0; i < 11; i++) {
@@ -149,6 +182,7 @@ public class Dim extends GraphicsProgram {
 		return cs;
 	}
 	
+	// Create one circle
 	private GOval circle() {
 		GOval go = new GOval(SIZE, SIZE);
 		go.setFillColor(Color.gray);
