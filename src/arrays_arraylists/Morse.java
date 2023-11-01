@@ -85,7 +85,7 @@ public class Morse extends GraphicsProgram {
 		button.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) { // is actionPerformed the keyword
-				
+					
 				translateMorse();
 				
 			}
@@ -100,7 +100,6 @@ public class Morse extends GraphicsProgram {
 		
 		// Translate the message to Morse code
 		als = stringToMorse(s);
-		
 		area.setText("");
 		
 		// Iterate over all the resulted array of strings
