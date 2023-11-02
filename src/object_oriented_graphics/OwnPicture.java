@@ -10,7 +10,7 @@ public class OwnPicture extends GraphicsProgram {
 	
 	public void run() {
 		
-		GImage im = new GImage("img.jpeg");
+		GImage im = new GImage("milk_maid.png");
 		im.setSize(getWidth(), getHeight());
 		add(im);
 		

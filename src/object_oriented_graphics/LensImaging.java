@@ -104,7 +104,6 @@ public class LensImaging extends GraphicsProgram {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new LensImaging().start();
-		
 	}
 	
 	private static double WIDTH = 100.0;

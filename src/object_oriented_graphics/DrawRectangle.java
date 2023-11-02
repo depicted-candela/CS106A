@@ -31,7 +31,6 @@ public class DrawRectangle extends GraphicsProgram {
 		
 		startX = e.getX();
 		startY = e.getY();
-		System.out.println(shape);
 		
 		if (getElementAt(startX, startY) == null) {
 			
