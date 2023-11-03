@@ -44,30 +44,34 @@ public class ClipImage extends GraphicsProgram {
 		add(new GImage(arraySelector()));
 	}
 	
+	/** Selects the array given coordinates and width and height of
+	 * the rectangle created by the mouse */
 	private int[][] arraySelector() {
 		int[][] arr = IM.getPixelArray();
 		ArrayList<ArrayList<Integer>> newarr = new ArrayList<>();
 		ArrayList<Integer> temparr;
-		double s_x = arr[0].length / IM.getWidth();
-		double s_y = arr.length / IM.getHeight();		
-		for (int i = (int) (x / s_x); i < (int) (width + x) / s_x; i++) {
+		double s_x = IM.getWidth() / arr[0].length;
+		double s_y = IM.getHeight() / arr.length;
+		
+		for (int j = (int) (y / s_y); j < (int) ((height + y) / s_y); j++) {
 			temparr = new ArrayList<Integer>();
-			for (int j = (int) (y / s_y); j < (int) (height + y) / s_y; j++) {
+			int x_s = (int) (x / s_x);
+			for (int i = x_s; i < (int) ((width + x) / s_x); i++) {
 				temparr.add(arr[j][i]);
 			}
 			newarr.add(temparr);
 		}
-		
 		return arrayOrganizer(newarr);
 	}
 	
+	/** Organizes the array selected by arraySelector */
 	private int[][] arrayOrganizer(ArrayList<ArrayList<Integer>> newarr) {
-		int[][] new_array = new int[newarr.get(0).size()][newarr.size()];
+		int[][] new_array = new int[newarr.size()][newarr.get(0).size()];
 		int r = 0;
 		for (ArrayList<Integer> na : newarr) {
 			int c = 0;
 			for (int n : na) {
-				new_array[c][r] = n;
+				new_array[r][c] = n;
 				c++;
 			}
 			r++;
@@ -83,6 +87,7 @@ public class ClipImage extends GraphicsProgram {
 		y = raw[0].length / getHeight();
 		add(IM);
 	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new ClipImage().start();
