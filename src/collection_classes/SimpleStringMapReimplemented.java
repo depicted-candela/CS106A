@@ -78,7 +78,7 @@ public class SimpleStringMapReimplemented {
 	
 	/* Private constants */
 	private static final int INI_BUCKETS = 7;
-	public int N_BUCKETS;
+	private int N_BUCKETS;
 	/* Private instance variables */
 	public ArrayList<String>[][] bucketArray;
 	public ArrayList<String>[][] tempArray;
