@@ -14,6 +14,7 @@ public class ClipImage extends GraphicsProgram {
 	private static GImage IM = new GImage("last_supper_full.jpeg");
 	private double start_x, start_y, x, y, width, height;
 	private GRect r;
+	
 	/**
 	 * @param args
 	 */
