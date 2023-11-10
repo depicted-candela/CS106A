@@ -76,10 +76,19 @@ public class SimpleStringMapReimplemented {
 		}
 	}
 	
+	/**
+	 * Print all the values in the object aggregated by key
+	 */
+	public void print() {
+		for (ArrayList<String>[] suba : bucketArray) {
+			System.out.println(suba[0]);
+		}
+	}
+	
 	/* Private constants */
 	private static final int INI_BUCKETS = 7;
 	private int N_BUCKETS;
 	/* Private instance variables */
 	public ArrayList<String>[][] bucketArray;
-	public ArrayList<String>[][] tempArray;
+	private ArrayList<String>[][] tempArray;
 }
