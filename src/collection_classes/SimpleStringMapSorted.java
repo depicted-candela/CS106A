@@ -3,17 +3,19 @@
  */
 package collection_classes;
 import java.util.*;
+import java.util.Iterator;
 
 /**
  * 
  */
-public class SimpleStringMapSorted {
+public class SimpleStringMapSorted<E> implements Iterator<E> {
 
 	/** Creates a new SimpleStringMap with no key/value pairs */
 	@SuppressWarnings("unchecked")
 	public SimpleStringMapSorted() {
 		BUCKETARRAY = new ArrayList[2][INI_BUCKETS];
 		capacity = INI_BUCKETS;
+		actual = 0;
 		for (int i = 0; i < capacity; i++) {
 			BUCKETARRAY[0][i] = new ArrayList<String>();
 			BUCKETARRAY[1][i] = new ArrayList<String>();
@@ -25,6 +27,7 @@ public class SimpleStringMapSorted {
 	* @param value The new value to be associated with key
 	*/
 	public void put(String key, String value) {
+		
 		if (effective_size == capacity) {
 			capacity *= 2;
 			rearranging();
@@ -182,8 +185,39 @@ public class SimpleStringMapSorted {
 		}
 	}
 	
+	@Override
+	public boolean hasNext() {
+		boolean b1 = BUCKETARRAY[0][actual + 1] == null;
+		boolean b2 = BUCKETARRAY[0][actual + 1].size() == 0;
+		if (b1 || b2) {
+			return false;
+		}
+		return true;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public E next() {
+		if (hasNext()) {
+			
+			int vals = BUCKETARRAY[1][actual + 1].size();
+			String[] key = {BUCKETARRAY[0][actual + 1].get(0)};
+			String[] values = new String[vals];
+			
+			for (int i = 0; i < vals; i++) {
+				values[i] = BUCKETARRAY[1][actual + 1].get(i);
+			}
+			
+			String[][] total = {key, values};
+			
+			return (E) total;
+		}
+		return null;
+	}
+	
 	/* Private constants */
 	private static final int INI_BUCKETS = 7;
+	private int actual;
 	private int capacity;
 	private int effective_size = 0;
 	/* Private instance variables */

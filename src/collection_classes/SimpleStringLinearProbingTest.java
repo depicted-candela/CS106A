@@ -24,15 +24,28 @@ public class SimpleStringLinearProbingTest {
 		ssln.put("E", "EFG");
 		ssln.put("F", "FGH");
 		ssln.put("G", "GHI");
+		System.out.println(ssln.N_BUCKETS);
+		ssln.put("H", "HIF");
+		System.out.println(ssln.N_BUCKETS);
+		ssln.put("H", "HIF");
+		System.out.println(ssln.N_BUCKETS);
+		ssln.put("H", "HIF");
+		ssln.put("H", "HIF");
 		ssln.put("H", "HIF");
 		for (int i = 0; i < ssln.N_BUCKETS; i++) {
-			HashEntryLinearProbing help = ssln.bucketArray[i];
-			if (help != null) {
-				System.out.print(help.getKey());
-				System.out.print(": ");
-				System.out.println(help.getValue());	
-			} else {
+			if (ssln.bucketArray[i] == null) {
 				System.out.println("null: ");
+			} else {
+				System.out.println(ssln.bucketArray[i].getKey());
+			}
+		}
+		ssln.delete("A");
+		System.out.println("Nuevo");
+		for (int i = 0; i < ssln.N_BUCKETS; i++) {
+			if (ssln.bucketArray[i] == null) {
+				System.out.println("null: ");
+			} else {
+				System.out.println(ssln.bucketArray[i].getKey());
 			}
 		}
 	}
