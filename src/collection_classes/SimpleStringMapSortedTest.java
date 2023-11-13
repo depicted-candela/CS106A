@@ -20,12 +20,11 @@ public class SimpleStringMapSortedTest {
 		ssms.put("BUG", "Bucaramanga");
 		ssms.put("LET", "Leticia");
 		ssms.put("MED", "Medellín");
-		
+		ssms.put("BAR", "Barranquilla");
+		ssms.put("ST", "Santa Marta");
 		ssms.print();
-		
-		ssms.get("MED");
-		
 	}
+	
 	public static void main(String[] args) {
 		new SimpleStringMapSortedTest().run();
 	}
