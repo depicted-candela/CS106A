@@ -12,7 +12,7 @@ public class SimpleStringMapSortedTest {
 	 */
 	
 	public void run() {
-		SimpleStringMapSorted ssms = new SimpleStringMapSorted();
+		SimpleStringMapSorted<String> ssms = new SimpleStringMapSorted<String>();
 		ssms.put("CA", "Cali");
 		ssms.put("CA", "California");
 		ssms.put("BOG", "Bogotá");
