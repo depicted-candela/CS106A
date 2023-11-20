@@ -20,11 +20,9 @@ public class Lexicon implements Iterable<String> {
 	public Lexicon(String file) throws IOException {
 		BufferedReader BR = new BufferedReader(new FileReader(file));
 		String line = BR.readLine();
-		int k = 0;
-		hm.put(k, line);
+		hm.put(line.hashCode() % 7, line);
 		while((line = BR.readLine()) != null) {
-			hm.put(k, line);
-			k++;
+			hm.put(line.hashCode() % 7, line);
 		}
 		BR.close();
 	}
@@ -70,8 +68,8 @@ public class Lexicon implements Iterable<String> {
 			 * false otherwise
 			 */
 			public boolean hasNext() {
-				if (hm.keySet().size() == 1) return false;
-				return true;
+				Iterator<Integer> it = hm.keySet().iterator();
+				return it.hasNext();
 			}
 
 			@Override
