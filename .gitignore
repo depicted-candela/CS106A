@@ -1,12 +1,5 @@
 .metadata
-bin
-Cangle.png
-Cherry.jpeg
-last_supper_full.jpeg
-Lemon.jpeg
-milk_maid.png
-Movies.txt
-Orange.jpeg
-PigLatin.txt
-Plum.jpeg
-van_gogh_starry_night.jpeg
+bin/
+*.png
+*.jpeg
+*.txt
