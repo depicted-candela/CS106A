@@ -32,7 +32,7 @@ public class RandomWord extends ConsoleProgram {
 		
 		for (int i = 0; i < letters; i++) {
 			int letter = rand.nextInt(65, 90);
-			String l = Character.toString(letter);
+			String l = Character.toString((char) letter);
 			word += l;
 		}
 		
