@@ -69,7 +69,7 @@ public class CaeserCipher extends ConsoleProgram {
 			
 		}
 		
-		return Character.toString(newchar);
+		return Character.toString((char) newchar);
 		
 	}
 	
