@@ -2,7 +2,6 @@ package event_driven_programs;
 
 import acm.gui.*;
 import acm.program.*;
-//import acm.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -25,11 +24,6 @@ public class Calculator extends Program {
 			((CalculatorButton) source).action(display);
 		}
 	}
-	
-	public static void main(String[] args) {
-		new Calculator().start();
-	}
-	
 	/* Adds the buttons to the calculator */
 	private void addButtons() {
 		String constraint = "width=" + BUTTON_SIZE + " height=" + BUTTON_SIZE;
@@ -49,6 +43,10 @@ public class Calculator extends Program {
 		add(new DigitButton(0), constraint);
 		add(new EqualsButton(), constraint);
 		add(new DivideButton(), constraint);
+	}
+	/* The main */
+	public static void main(String[] args) {
+		new Calculator().start();
 	}
 	/* Private constants and instance variables */
 	private static final int BUTTON_SIZE = 40;
@@ -119,6 +117,7 @@ abstract class CalculatorButton extends JButton {
 	/* Called when the button is clicked (every subclass must implement this method) */
 	public abstract void action(CalculatorDisplay display);
 }
+
 /*
 * This class is used for each of the digit buttons. The action consists of
 * adding the digit used as a label on the button, which is returned by getText.
@@ -177,6 +176,7 @@ class DivideButton extends OperatorButton {
 	public DivideButton() { super("/"); }
 	public int apply(int lhs, int rhs) { return lhs / rhs; }
 }
+
 /*
 * The EqualsButton class displays the current value. As it happens, this
 * operation can be implemented simply by setting the operator to null.
@@ -190,6 +190,7 @@ class EqualsButton extends CalculatorButton {
 		display.setOperator(null);
 	}
 }
+
 /*
 * The ClearButton class resets the calculator by setting the operator to
 * null and the display value to 0.

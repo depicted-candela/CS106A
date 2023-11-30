@@ -25,6 +25,10 @@ public class Pyramid extends GraphicsProgram {
 		
 	}
 	
+	public static void main(String[] args) {
+		new Pyramid().start();
+	}
+	
 	private static int BRICK_WIDTH = 14;
 	private static int BRICK_HEIGHT = 8;
 	private static int BRICKS_IN_BASE = 40;

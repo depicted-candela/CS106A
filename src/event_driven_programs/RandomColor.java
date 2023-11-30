@@ -1,7 +1,4 @@
-/**
- * 
- */
-package object_oriented_graphics;
+package event_driven_programs;
 
 /**
  * @author nicalcoca
@@ -14,7 +11,7 @@ import acm.util.*;
 import java.awt.Color;
 import java.awt.event.*;
 
-public class RandomColors extends GraphicsProgram {
+public class RandomColor extends GraphicsProgram {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -29,8 +26,7 @@ public class RandomColors extends GraphicsProgram {
 		
 		W = (GLabel) nearestElement(x, y);
 		if (W != null) {
-			W.setColor(randomCol(W));
-//			W.setColor(givenColor(W.getLabel()));
+			W.setColor(givenColor(W.getLabel()));
 		}
 		
 	}
@@ -54,6 +50,26 @@ public class RandomColors extends GraphicsProgram {
 		
 		if (W != null) {
 			W.setColor(randomCol(W));
+		}
+		
+	}
+	
+	private Color givenColor (String s) {
+		
+		if (s.equals("RED")) {
+			return Color.RED;
+		} else if (s.equals("ORANGE")) {
+			return Color.ORANGE;
+		} else if (s.equals("YELLOW")) {
+			return Color.YELLOW;
+		} else if (s.equals("GREEN")) {
+			return Color.GREEN;
+		} else if (s.equals("CYAN")) {
+			return Color.CYAN;
+		} else if (s.equals("MAGENTA")) {
+			return Color.MAGENTA;
+		} else {
+			return Color.BLUE;
 		}
 		
 	}
@@ -142,7 +158,7 @@ public class RandomColors extends GraphicsProgram {
 	
 	public static void main(String[] args) {
 		
-		new RandomColors().start();
+		new RandomColor().start();
 		
 	}
 	
