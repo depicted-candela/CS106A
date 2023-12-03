@@ -1,15 +1,8 @@
-/**
- * 
- */
-package object_oriented_graphics;
-
-/**
- * @author nicalcoca
- *
- */
+package event_driven_programs;
 
 import java.awt.event.*;
 import acm.graphics.*;
+import object_oriented_graphics.ShapesForDrawing;
 
 public class SimpleDraw extends DrawRectangle {
 	
@@ -57,7 +50,6 @@ public class SimpleDraw extends DrawRectangle {
 		
 		startX = e.getX();
 		startY = e.getY();
-		System.out.println(shape);
 		
 		if (getElementAt(startX, startY) == null) {
 			
@@ -147,7 +139,9 @@ public class SimpleDraw extends DrawRectangle {
 	}
 	
 	public static void main(String[] args) {
+		
 		new SimpleDraw().start();
+
 	}
 	
 	/* Private state */
