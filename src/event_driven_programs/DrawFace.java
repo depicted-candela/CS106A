@@ -6,7 +6,6 @@ package event_driven_programs;
 import java.awt.event.*;
 import acm.program.*;
 import acm.graphics.*;
-import object_oriented_graphics.Face;
 
 /**
  * 
@@ -20,7 +19,7 @@ public class DrawFace extends GraphicsProgram {
 	 */
 
 	public void init() {
-		F = new Face(SIZE);
+		F = new SeeingFace(SIZE);
 		POS_X = getWidth() / 2 - ((5 * SIZE) / 12);
 		POS_Y = getHeight() / 2 - SIZE / 2;
 		add(F, POS_X, POS_Y);
@@ -30,15 +29,25 @@ public class DrawFace extends GraphicsProgram {
 	public void mousePressed(MouseEvent e) {
 		double x = e.getX();
 		double y = e.getY();
-		GOval eye = (GOval) F.getElement(2);
-		F.see(x, y, eye.getX() + POS_X, eye.getY() + POS_Y);
+		GOval pup_l = (GOval) F.getElement(3);
+		GOval pup_r = (GOval) F.getElement(4);
+		F.see(x, y,
+				pup_l.getX() + POS_X,
+				pup_l.getY() + POS_Y,
+				pup_r.getX() + POS_X,
+				pup_r.getY() + POS_Y);
 	}
 	
 	public void mouseDragged(MouseEvent e) {
-		double x = e.getX();
-		double y = e.getY();
-		GOval eye = (GOval) F.getElement(2);
-		F.see(x, y, eye.getX() + POS_X, eye.getY() + POS_Y);
+		double x 	= e.getX();
+		double y 	= e.getY();
+		GOval pup_l = (GOval) F.getElement(3);
+		GOval pup_r = (GOval) F.getElement(4);
+		F.see(x, y,
+				pup_l.getX() + POS_X,
+				pup_l.getY() + POS_Y,
+				pup_r.getX() + POS_X,
+				pup_r.getY() + POS_Y);
 	}
 	
 	public void mouseReleased(MouseEvent e) {
@@ -50,7 +59,7 @@ public class DrawFace extends GraphicsProgram {
 	}
 	
 	private double POS_X, POS_Y;
-	private int SIZE = 300;
-	private Face F;
+	private int SIZE = 400;
+	private SeeingFace F;
 	
 }
