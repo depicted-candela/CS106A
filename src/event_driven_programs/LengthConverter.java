@@ -18,28 +18,42 @@ public class LengthConverter extends GraphicsProgram {
 	 */
 	
 	private void comboxCreator() {
+		
+		SIZE_COMB_W 	= getWidth() / 7;
+		SIZE_COMB_H 	= getHeight() / 10;
+		
 		COMBOBOXLEFT 	= new JComboBox<String>(ITEMS);
-		left_sel 		= (String) COMBOBOXLEFT.getSelectedItem();
-		COMBOBOXRIGHT 	= new JComboBox<String>(ITEMS);
+		COMBOBOXLEFT.setBounds(getWidth() / 2 - SIZE_COMB_W, getHeight() / 2 - SIZE_COMB_H, SIZE_COMB_W, SIZE_COMB_H);
+		COMBOBOXLEFT.setSelectedItem(ITEMS[1]);
 		COMBOBOXLEFT.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				updateComboBox(COMBOBOXRIGHT, COMBOBOXLEFT, (String) COMBOBOXLEFT.getSelectedItem());
+				if (COMBOBOXLEFT.getSelectedItem() != null) {
+					if (COMBOBOXLEFT.getSelectedItem().equals(COMBOBOXRIGHT.getSelectedItem())) {
+						updateComboBox(COMBOBOXRIGHT,
+								COMBOBOXLEFT,
+								(String) COMBOBOXLEFT.getSelectedItem());
+					}
+				}
 			}
 		});
-		SIZE_COMB_W 	= getWidth() / 7;
-		SIZE_COMB_H 	= getHeight() / 10;
-		COMBOBOXLEFT.setBounds(getWidth() / 2 - SIZE_COMB_W, getHeight() / 2 - SIZE_COMB_H, SIZE_COMB_W, SIZE_COMB_H);
 		add(COMBOBOXLEFT, getWidth() / 2 - SIZE_COMB_W, getHeight() / 2 - SIZE_COMB_H);
+		
+		COMBOBOXRIGHT 	= new JComboBox<String>(ITEMS);
+		COMBOBOXRIGHT.setBounds(getWidth() / 2, getHeight() / 2 - SIZE_COMB_H, SIZE_COMB_W, SIZE_COMB_H);
+		COMBOBOXRIGHT.setSelectedItem(ITEMS[2]);
 		COMBOBOXRIGHT.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				updateComboBox(COMBOBOXLEFT, COMBOBOXRIGHT, (String) COMBOBOXRIGHT.getSelectedItem());
+				if (COMBOBOXRIGHT.getSelectedItem() != null) {
+					if (COMBOBOXRIGHT.getSelectedItem().equals(COMBOBOXLEFT.getSelectedItem())) {
+						updateComboBox(COMBOBOXLEFT,
+								COMBOBOXRIGHT,
+								(String) COMBOBOXRIGHT.getSelectedItem());
+					}
+				}
 			}
 		});
-		COMBOBOXRIGHT.setBounds(getWidth() / 2, getHeight() / 2 - SIZE_COMB_H, SIZE_COMB_W, SIZE_COMB_H);
-		COMBOBOXRIGHT.setSelectedItem(ITEMS[2]);
-		right_sel		= (String) COMBOBOXRIGHT.getSelectedItem();
 		add(COMBOBOXRIGHT, getWidth() / 2, getHeight() / 2 - SIZE_COMB_H);
 	}
 	
@@ -60,23 +74,61 @@ public class LengthConverter extends GraphicsProgram {
 		LEFT_B.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				println(right_sel);
-				println(RIGHT.getValue());
+				Double result	= segregateCalculator(
+						(String) COMBOBOXLEFT.getSelectedItem(), 
+						(String) COMBOBOXRIGHT.getSelectedItem(), 
+						LEFT.getValue());
+				RIGHT.setValue(result);
 			}
 		});
 		RIGHT_B.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				println(left_sel);
-				println(LEFT.getValue());
+				Double result	= segregateCalculator(
+						(String) COMBOBOXRIGHT.getSelectedItem(),
+						(String) COMBOBOXLEFT.getSelectedItem(), RIGHT.getValue());
+				LEFT.setValue(result);
 			}
 		});
 		add(LEFT_B, getWidth() / 2 - SIZE_COMB_W, getHeight() / 2 + SIZE_COMB_H);
 		add(RIGHT_B, getWidth() / 2, getHeight() / 2 + SIZE_COMB_H);
 	}
 	
-	private void segregateCalculator(String input, String output) {
-		
+	private Double segregateCalculator(String input, String output, double i) {
+		if (!input.equals("feet")) {
+			if (!output.equals("feet")) {
+				return fromFeet(output, toFeet(input, i));
+			} else {
+				return toFeet(input, i);
+			}
+		} else {
+			return fromFeet(output, i);
+		}
+	}
+	
+	private Double toFeet(String input, double i) {
+		switch (input) {
+		case "yards": return i * 3;
+		case "fathoms": return i * 6;
+		case "rods": return i * 16.5;
+		case "miles": return i * 5280;
+		case "inches": return i / 12;
+		case "furlongs":
+			return i * 220 * toFeet("yards", 1);
+		default: return null;
+		}
+	}
+	
+	private Double fromFeet(String output, double i) {
+		switch (output) {
+		case "yards": return i / 3;
+		case "fathoms": return i / 6;
+		case "rods": return i / 16.5;
+		case "miles": return i / 5280;
+		case "inches": return i * 12;
+		case "furlongs": return fromFeet("yards", i) / 220;
+		default: return null;
+		}
 	}
 	
 	private void updateComboBox(JComboBox<String> com1, JComboBox<String> com2, String s) {
@@ -110,7 +162,6 @@ public class LengthConverter extends GraphicsProgram {
 	private static String[] ITEMS = {"inches", "feet", "yards", "miles",
 			"fathoms", "rods", "furlongs"};
 	private JComboBox<String> COMBOBOXLEFT, COMBOBOXRIGHT;
-	private String left_sel, right_sel;
 	private int SIZE_COMB_W, SIZE_COMB_H;
 	private DoubleField LEFT, RIGHT;
 	private JButton LEFT_B, RIGHT_B;
