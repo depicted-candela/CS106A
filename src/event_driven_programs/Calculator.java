@@ -49,8 +49,8 @@ public class Calculator extends Program {
 		new Calculator().start();
 	}
 	/* Private constants and instance variables */
-	private static final int BUTTON_SIZE = 40;
-	private CalculatorDisplay display;
+	protected static final int BUTTON_SIZE = 45;
+	protected CalculatorDisplay display;
 }
 
 /*
@@ -112,7 +112,7 @@ abstract class CalculatorButton extends JButton {
 	/* Creates a new CalculatorButton with the specified name */
 	public CalculatorButton(String name) {
 		super(name);
-		setFont(new Font("SansSerif", Font.PLAIN, 24));
+		setFont(new Font("SansSerif", Font.PLAIN, 10));
 	}
 	/* Called when the button is clicked (every subclass must implement this method) */
 	public abstract void action(CalculatorDisplay display);
@@ -205,7 +205,3 @@ class ClearButton extends CalculatorButton {
 		display.setValue(0);
 	}
 }
-
-
-
-
