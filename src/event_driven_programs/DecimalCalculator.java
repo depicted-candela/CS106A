@@ -50,6 +50,7 @@ public class DecimalCalculator extends Calculator {
 	    add(new DigitButtonDouble(0), constraint);
 
 	    // Add the three buttons to the sub-panel
+	    // GridLayout to fill the remaining space
 	    JPanel threeButtons = new JPanel(new GridLayout(1, 3));
 	    threeButtons.add(new EqualsButtonDouble());
 	    threeButtons.add(new DotButton());
