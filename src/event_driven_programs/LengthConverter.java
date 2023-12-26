@@ -59,12 +59,14 @@ public class LengthConverter extends GraphicsProgram {
 	
 	private void createDoubleInputField() {
 		LEFT	= new DoubleField();
-		LEFT.setActionCommand("<- Convert"); // Implicit
+		RIGHT	= new DoubleField();
+		
+		LEFT.setActionCommand("Convert ->");
 		LEFT.addActionListener(this);   // Explicit: alone needed if is not sharing behavior or listener
 										// with a nother element
 		LEFT.setBounds(getWidth() / 2 - SIZE_COMB_W, getHeight() / 2, SIZE_COMB_W, SIZE_COMB_H);
-		RIGHT	= new DoubleField();
-		LEFT.setActionCommand("Convert ->"); // Implicit
+		
+		RIGHT.setActionCommand("<- Convert");
 		RIGHT.addActionListener(this); // Explicit
 		RIGHT.setBounds(getWidth() / 2, getHeight() / 2, SIZE_COMB_W, SIZE_COMB_H);
 		add(LEFT, getWidth() / 2 - SIZE_COMB_W, getHeight() / 2);
@@ -73,30 +75,11 @@ public class LengthConverter extends GraphicsProgram {
 	
 	private void createButtons() {
 		LEFT_B 	= new JButton("Convert ->"); // Implicit
-		LEFT_B.addActionListener(this); // Explicit
+		LEFT_B.addActionListener(this);
 		RIGHT_B	= new JButton("<- Convert"); // Implicit
-		RIGHT_B.addActionListener(this); // Explicit
+		RIGHT_B.addActionListener(this);
 		LEFT_B.setBounds(getWidth() / 2 - SIZE_COMB_W, getHeight() / 2 + SIZE_COMB_H, SIZE_COMB_W, SIZE_COMB_H);
 		RIGHT_B.setBounds(getWidth() / 2, getHeight() / 2 + SIZE_COMB_H, SIZE_COMB_W, SIZE_COMB_H);
-//		LEFT_B.addActionListener(new ActionListener() { // Implicit
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				Double result	= segregateCalculator(
-//						(String) COMBOBOXLEFT.getSelectedItem(), 
-//						(String) COMBOBOXRIGHT.getSelectedItem(), 
-//						LEFT.getValue());
-//				RIGHT.setValue(result);
-//			}
-//		});
-//		RIGHT_B.addActionListener(new ActionListener() { // Implicit
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				Double result	= segregateCalculator(
-//						(String) COMBOBOXRIGHT.getSelectedItem(),
-//						(String) COMBOBOXLEFT.getSelectedItem(), RIGHT.getValue());
-//				LEFT.setValue(result);
-//			}
-//		});
 		add(LEFT_B, getWidth() / 2 - SIZE_COMB_W, getHeight() / 2 + SIZE_COMB_H);
 		add(RIGHT_B, getWidth() / 2, getHeight() / 2 + SIZE_COMB_H);
 	}
@@ -108,24 +91,14 @@ public class LengthConverter extends GraphicsProgram {
 				(String) COMBOBOXRIGHT.getSelectedItem(), 
 				LEFT.getValue());
 			RIGHT.setValue(result);
-		} else if (e.getActionCommand().equals("<- Convert")) {
+		}
+		if (e.getActionCommand().equals("<- Convert")) {
 			Double result	= segregateCalculator(
 				(String) COMBOBOXRIGHT.getSelectedItem(),
-				(String) COMBOBOXLEFT.getSelectedItem(), RIGHT.getValue());
+				(String) COMBOBOXLEFT.getSelectedItem(),
+				RIGHT.getValue());
 			LEFT.setValue(result);
 		}
-//		if (e.getSource() == LEFT) {			// With entire explicit calls
-//			Double result	= segregateCalculator(
-//					(String) COMBOBOXLEFT.getSelectedItem(), 
-//					(String) COMBOBOXRIGHT.getSelectedItem(), 
-//					LEFT.getValue());
-//			RIGHT.setValue(result);
-//		} else if (e.getSource() == RIGHT) {
-//			Double result	= segregateCalculator(
-//					(String) COMBOBOXRIGHT.getSelectedItem(),
-//					(String) COMBOBOXLEFT.getSelectedItem(), RIGHT.getValue());
-//			LEFT.setValue(result);
-//		}
 	}
 	
 	private Double segregateCalculator(String input, String output, double i) {
