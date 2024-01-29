@@ -3,6 +3,8 @@
  */
 package sorting_searching;
 
+import java.util.Arrays;
+
 import acm.program.*;
 import acm.util.*;
 
@@ -27,17 +29,30 @@ public class IsSorted extends ConsoleProgram {
 		}
 	}
 	
-	public boolean isSorted(int[] array) {
-		int length = array.length;
-		int middle = length / 2;
-		if (length > 1) {
-			
-		}
-		return false;
+	public Boolean isSorted(int[] array) {
+		
+		int last 	= array.length - 1;
+		
+		if (last <= 0) return true;
+		
+		int middle 	= last / 2 + 1;
+		
+		if (array[0] > array[last]) return false; 
+		
+		int[] arrayl = Arrays.copyOfRange(array, 0, middle);
+		int[] arrayr = Arrays.copyOfRange(array, middle, last);
+		
+		boolean lis = isSorted(arrayl);
+		boolean ris = isSorted(arrayr);
+
+		return lis & ris;
+		
 	}
 	
 	public void run() {
-		
+		if (isSorted(decreasingArray)) println("Decreasing order");
+		if (isSorted(increasingArray)) println("Nondecreasing order");
+		if (isSorted(randomArray)) println("Random order");
 	}
 
 	/**

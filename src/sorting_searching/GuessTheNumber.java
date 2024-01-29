@@ -46,7 +46,7 @@ public class GuessTheNumber extends ConsoleProgram {
 	/**
 	 * The class invokation
 	 */
-	public static void main() {
+	public static void main(String[] args) {
 		new GuessTheNumber().start();
 	}
 	
