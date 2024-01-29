@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/depiction/Documents/libraries/acm.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/diana/packages/acm.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
